@@ -1,0 +1,664 @@
+\documentclass[fontsize=10pt, paper=letter]{article}
+\usepackage{fancyhdr}
+\usepackage{gensymb}
+\usepackage{mdframed}
+
+\usepackage{adjustbox}
+\usepackage{setspace}
+\usepackage{marginnote}
+\usepackage{draftwatermark}
+\usepackage{tabu}
+\usepackage{multirow}
+\usepackage{titling}
+\usepackage{fontawesome}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{multicol}
+
+\setcounter{tocdepth}{3}
+
+\setlength\cftparskip{0pt}
+\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{3}
+%\usepackage{footnote}
+
+%%% METADATA
+
+\author{Rebecca C. Murphy}
+
+%%% HEADER SPACING
+
+\titlespacing\section{0pt}{10pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{10pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{10pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\paragraph{0pt}{2pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+
+\pagestyle{fancy}
+\setlength{\parskip}{\baselineskip}
+
+
+%%% HEADERS
+
+\lhead{vZDC Clearance Delivery Quick Reference}
+\chead{}
+\rhead{\theauthor}
+\lfoot{Published \today}
+\rfoot{For Simulation Use Only}
+
+%%% INSET
+
+\newenvironment{inset}[1]
+  {\par\begin{mdframed}[linewidth=0.5pt]%
+    \begin{list}{}{\leftmargin=1cm
+                   \labelwidth=\leftmargin}\item[\raisebox{-0.0em}{\smash{\large#1}}]\null\vspace{\fill}\par\tiny}
+  {\vspace{\fill}\end{list}\end{mdframed}\par}
+
+%%% DANGER SYMBOL
+
+\newcommand*{\TakeFourierOrnament}[1]{{%
+\fontencoding{U}\fontfamily{futs}\selectfont\char#1}}
+\newcommand*{\danger}{\TakeFourierOrnament{66}}
+
+%%% UTILITIES
+
+\newcommand{\Scratchpad}[1]{\texttt{#1}}
+\newcommand{\NoScratchpad}[1]{\texttt{---}}
+\newcommand{\VOR}[1]{\texttt{#1}}
+\newcommand{\Variable}[1]{\emph{[#1]}}
+\newcommand{\fixme}[1]{\marginnote{\setstretch{.6}\parbox[t]{\marginparwidth}{{\scriptsize \bfseries Fix Me:}\\\emph{{\tiny#1}}}}}
+
+
+
+%%% INITIAL ALTITUDES, to support \Airport (these should always be redefined before they're used)
+\newcommand{\IFRInitialAlt}{---}
+\newcommand{\VFRInitialAlt}{---}
+
+%%% AIRPORT SECTIONS
+
+\newcommand{\Airport}[3]{
+\section{#1}
+\renewcommand{\IFRInitialAlt}{#2}
+\renewcommand{\VFRInitialAlt}{#3}
+}
+
+
+%%% INFO BLOCKS / COMMON TEXT
+
+\newcommand{\VFRBravo}{%
+\begin{inset}{\danger}%
+All VFR clearances \emph{must} include ``cleared through the Washington Bravo Airspace''.%
+\end{inset}%
+}
+
+\newcommand{\VFRClosedTraffic}{\paragraph{Closed traffic} is to maintain VFR ``at or below pattern altitude''.}
+
+
+%%% TABLE LAYOUT FOR SIDS
+\renewcommand{\thefootnote}{\alph{footnote}}
+\newcommand{\NoTop}{\textsuperscript{~a~}}
+\newcommand{\RNAVOnly}{\textsuperscript{~r~}}
+
+\newenvironment{sidtable}{
+\begin{center}
+\begin{adjustbox}{width=0.9\textwidth,center}
+\begin{tabular}{|lllll|}
+\hline
+\textbf{SID} & \textbf{Transition} & \textbf{Scratch} & \multicolumn{2}{l|}{\textbf{Radio Phraseology}} \\
+\hline
+}{
+\end{tabular}
+\phantom{}
+\phantom{}
+      \end{adjustbox}
+\end{center}
+\footnotetext{\NoTop No published top altitude, controller \emph{must} assign ``maintain \IFRInitialAlt, expect \Variable{Cruise Altitude} 10 minutes after departure''}
+\footnotetext{\RNAVOnly RNAV Only}
+}
+
+%%% Common Symbols
+
+\newcommand{\Yes}{\faCheckCircle}
+\newcommand{\No}{\faTimesCircle}
+
+%%% VORs (Pronunciation}
+\newcommand{\ACY}{Atlantic City}
+\newcommand{\AML}{Armel}
+\newcommand{\BAL}{Baltimore}
+\newcommand{\CSN}{Casanova}
+\newcommand{\DCA}{Washington}
+\newcommand{\DQO}{Dupont}
+\newcommand{\EMI}{Westminster}
+\newcommand{\ENO}{Smyrna}
+\newcommand{\GSO}{Greensboro}
+\newcommand{\GVE}{Gordonsville}
+\newcommand{\LDN}{Linden}
+\newcommand{\LYH}{Lynchburg}
+\newcommand{\MRB}{Martinsburg}
+\newcommand{\OTT}{Nottingham}
+\newcommand{\OOD}{Woodstown}
+\newcommand{\SBV}{South Boston}
+\newcommand{\SIE}{Sea Isle}
+
+
+%%% Fixes (Pronunciation}
+
+\newcommand{\AGARD}{AGARD}%A-Guard}
+\newcommand{\BROSS}{BROSS}%Bross}
+\newcommand{\BUFFR}{BUFFR}%Buffer}
+\newcommand{\COLIN}{COLIN}%Colin}
+\newcommand{\CLTCH}{CLTCH}%Clutch}
+\newcommand{\DIXXE}{DIXXE}%Dixie}
+\newcommand{\FLASK}{FLASK}%Flask}
+\newcommand{\JERES}{JERES}%Jer-Res}
+\newcommand{\JDUBB}{JDUBB}%Jay-Dub}
+\newcommand{\JCOBY}{JCOBY}%Ja-Coby}
+\newcommand{\MAULS}{MAULS}%Mauls}
+\newcommand{\MCRAY}{MCRAY}%McRay}
+\newcommand{\OTTTO}{OTTTO}%Otto}
+\newcommand{\RAMAY}{RAMAY}%Ray-May}
+\newcommand{\REBLL}{REBLL}%Rebel}
+\newcommand{\SCRAM}{SCRAM}%Scram}
+\newcommand{\SWANN}{SWANN}%Swan}
+
+
+%%% SIDs
+
+% BWI
+
+
+\newcommand{\BWICONLEnum}{3}
+\newcommand{\BWIFIXETnum}{2}
+\newcommand{\BWIPALEOnum}{3}
+\newcommand{\BWISWANNnum}{3}
+\newcommand{\BWITERPZnum}{6}
+
+\newcommand{\BWICONLE}{CONLE\BWICONLEnum\RNAVOnly}
+\newcommand{\BWIFIXET}{FIXET\BWIFIXETnum\RNAVOnly}
+\newcommand{\BWIPALEO}{PALEO\BWIPALEOnum\NoTop}
+\newcommand{\BWISWANN}{SWANN\BWISWANNnum\NoTop}
+\newcommand{\BWITERPZ}{TERPZ\BWITERPZnum\RNAVOnly}
+
+% IAD
+
+
+\newcommand{\IADBUNZZnum}{3}
+\newcommand{\IADCPTALnum}{9}
+\newcommand{\IADCLTCHnum}{1}
+\newcommand{\IADJCOBYnum}{3}
+\newcommand{\IADJDUBBnum}{1}
+\newcommand{\IADJERESnum}{2}
+\newcommand{\IADMCRAYnum}{2}
+\newcommand{\IADRNLDInum}{4}
+\newcommand{\IADSCRAMnum}{3}
+\newcommand{\IADWOOLYnum}{1}
+
+\newcommand{\IADBUNZZ}{BUNZZ\IADBUNZZnum\RNAVOnly}
+\newcommand{\IADCPTAL}{CPTAL\IADCPTALnum}
+\newcommand{\IADCLTCH}{CLTCH\IADCLTCHnum\RNAVOnly}
+\newcommand{\IADJCOBY}{JCOBY\IADJCOBYnum\RNAVOnly}
+\newcommand{\IADJDUBB}{JDUBB\IADJDUBBnum\RNAVOnly}
+\newcommand{\IADJERES}{JERES\IADJERESnum\RNAVOnly}
+\newcommand{\IADMCRAY}{MCRAY\IADMCRAYnum\RNAVOnly}
+\newcommand{\IADRNLDI}{RNLDI\IADRNLDInum\RNAVOnly}
+\newcommand{\IADSCRAM}{SCRAM\IADSCRAMnum\RNAVOnly}
+\newcommand{\IADWOOLY}{WOOLY\IADWOOLYnum\RNAVOnly}
+
+% DCA
+
+\newcommand{\DCABOOCKnum}{2}
+\newcommand{\DCACLTCHnum}{1}
+\newcommand{\DCADOCTRnum}{3}
+\newcommand{\DCAHORTOnum}{2}
+\newcommand{\DCAJDUBBnum}{1}
+\newcommand{\DCANATNLnum}{7}
+\newcommand{\DCAREBLLnum}{3}
+\newcommand{\DCASCRAMnum}{3}
+\newcommand{\DCASOOKInum}{3}
+\newcommand{\DCAWYNGSnum}{3}
+
+
+\newcommand{\DCABOOCK}{BOOCK\DCABOOCKnum\RNAVOnly}
+\newcommand{\DCACLTCH}{CLTCH\DCACLTCHnum\RNAVOnly}
+\newcommand{\DCADOCTR}{DOCTR\DCADOCTRnum\RNAVOnly}
+\newcommand{\DCAHORTO}{HORTO\DCAHORTOnum\RNAVOnly}
+\newcommand{\DCAJDUBB}{JDUBB\DCAJDUBBnum\RNAVOnly}
+\newcommand{\DCANATNL}{NATNL\DCANATNLnum}
+\newcommand{\DCAREBLL}{REBLL\DCAREBLLnum\RNAVOnly}
+\newcommand{\DCASCRAM}{SCRAM\DCASCRAMnum\RNAVOnly}
+\newcommand{\DCASOOKI}{SOOKI\DCASOOKInum\RNAVOnly}
+\newcommand{\DCAWYNGS}{WYNGS\DCAWYNGSnum\RNAVOnly}
+
+\newcommand{\NoRestrictions}{\multicolumn{2}{c|}{---}}
+
+\begin{document}
+
+\makeatletter
+\begin{titlepage}
+	\centering
+	\includegraphics[width=0.5\textwidth]{logo}\par\vspace{1cm}
+	{\scshape\LARGE Clearance Delivery \par}
+	\vspace{1cm}
+	{\scshape\Large Quick Reference\par}
+	\vspace{1.5cm}
+
+	\vspace{1cm}
+	\noindent\begin{tabu}{lll}
+  \multirow{3}{*}{\large Covering:} & \textbf{KBWI} &  Baltimore Washington International \\
+		& \textbf{KDCA} & Washington National\\
+		& \textbf{KIAD} & Dulles International\\
+	\end{tabu}
+
+	\vspace{2cm}
+	{\Large\itshape \@author \par}
+	\vfill
+
+
+	\vfill
+
+% Bottom of the page
+	{Published \today\par}
+\end{titlepage}
+\makeatother
+\begin{singlespace}
+\tableofcontents
+\end{singlespace}
+\clearpage
+\section{Preamble}
+\subsection{Components}
+The components of a clearance can be remembered by the {\scshape Craft} acronym.
+
+\tabulinesep=1.2mm
+\noindent\begin{tabu} to \textwidth {*5{|X[C,m]}|}
+\hline
+
+Clearance Limit & Route & Altitude & Frequency & Transponder \\
+\hline
+
+\end{tabu}
+
+\subsection{Checklists}
+
+\subsubsection{Before Issuing a Clearance}
+
+\begin{itemize}
+	\item Is the flight plan sane?
+	\begin{itemize}
+		\item Departure / Arrival
+		\item Aircraft Type / Navigation Equipment: \emph{if there is a leading \texttt{T/}, remove it}
+		\item Routing
+		\item Cruise Altitude
+
+		\begin{tabu}{lll}
+			North or East & 000\degree -- 179\degree & Odd Thousands \\
+			South or West & 180\degree -- 359\degree & Even Thousands
+		\end{tabu}
+	\end{itemize}
+
+	\item Do we have an LOA with the destination ARTCC or are there relevant SOPs? If so...
+	\begin{itemize}
+		\item Does a preferred route exist? Is the pilot using it?
+		\item Are altitude restrictions respected?
+	\end{itemize}
+	\item Is the aircraft type and navigation equipment sane?
+	\item Can the aircraft fly the route provided with the equipment they have filed?
+	\item \emph{If the aircraft is VFR}, is weather above VFR minima? If not, has the aircraft been advised?
+\end{itemize}
+
+\subsubsection{Before Handing off an Aircraft}
+
+\begin{itemize}
+	\item Is the aircraft squawking the correct code \& Mode C?
+	\item Is the scratchpad set correctly?
+	\item If there is an ATIS, has the aircraft indicated possession of it? If not, has the aircraft been given current altimeter and wind?
+\end{itemize}
+
+
+\clearpage
+
+\subsection{Nearby VORs}
+
+\begin{multicols}{2}
+\begin{description}
+
+\item[\VOR{ACY}] \ACY
+\item[\VOR{AML}] \AML
+\item[\VOR{BAL}] \BAL
+\item[\VOR{CSN}] \CSN
+\item[\VOR{DCA}] \DCA
+\item[\VOR{DQO}] \DQO
+\item[\VOR{EMI}] \EMI
+\item[\VOR{ENO}] \ENO
+\item[\VOR{GSO}] \GSO
+\item[\VOR{GVE}] \GVE
+\item[\VOR{LDN}] \LDN
+\item[\VOR{LYH}] \LYH
+\item[\VOR{MRB}] \MRB
+\item[\VOR{OTT}] \OTT
+\item[\VOR{OOD}] \OOD
+\item[\VOR{SBV}] \SBV
+\item[\VOR{SIE}] \SIE
+
+
+\end{description}
+\end{multicols}
+
+
+\clearpage
+\null
+\vfill
+
+\begin{center}
+{\large The page intentionally left blank.}
+\end{center}
+
+\vfill
+
+%\subsection{Clearance Limit}
+%
+%Almost always the destination airport.
+%
+%\subsection{Route}
+%\vspace{0.5em}
+%\begin{inset}{\danger}
+%Check LOAs with adjacent centers for preferred routes.
+%\end{inset}
+%
+%
+%\subsection{Altitudes}
+%\subsubsection{Departure}
+%
+%See Airport Specific SOPs.
+%
+%\subsubsection{Cruise}
+%
+%\vspace{0.5em}
+%\begin{inset}{\danger}
+%Check LOAs with adjacent centers before clearing any aircraft for possible altitude constraints.
+%\end{inset}
+%
+%In general, all altitudes in the ZDC airspace must conform to...
+%
+%\noindent\begin{tabu} to \textwidth {rccc}
+%\hline
+%\multicolumn{2}{r}{\textbf{Flight Plan Track}} & \textbf{IFR} & \textbf{VFR} \\
+%North or East & 000\degree -- 179\degree & Odd Thousands & Odd Thousands + 500 \\
+%
+%South or West & 180\degree -- 359\degree & Even Thousands & Even Thousands + 500  \\
+%
+%\hline
+%\end{tabu}
+
+\clearpage
+
+\Airport{KBWI --- Baltimore Washington International}{4000}{2000}
+
+\subsection{Departure Routing}
+\begin{sidtable}
+\BWICONLE &		COLIN & 			\Scratchpad{DXE} & CONLE\BWICONLEnum & \COLIN \\
+\hline
+\BWIFIXET &		RAMAY & 			\NoScratchpad{FRM} & FIXET\BWIFIXETnum & \RAMAY \\
+\hline
+\BWIFIXET & 	FLASK & 			\NoScratchpad{FCL \tiny(for CLTCH)} & FIXET\BWIFIXETnum & \FLASK \\
+\hline
+\BWIFIXET & 	GSO & 				\NoScratchpad{FJD \tiny(for JDUBB)} & FIXET\BWIFIXETnum & \GSO \\
+\hline
+\BWIFIXET & 	LYH & 				\NoScratchpad{FSC \tiny(for SCRAM)} & FIXET\BWIFIXETnum & \LYH \\
+\hline
+\BWIFIXET & 	MAULS & 			\NoScratchpad{FRM} & FIXET\BWIFIXETnum & \MAULS \\
+\hline
+\BWIFIXET & 	OTTTO & 			\NoScratchpad{FRM} & FIXET\BWIFIXETnum & \OTTTO \\
+\hline
+\BWIFIXET & 	SBV & 				\NoScratchpad{FJD \tiny(for JDUBB)} & FIXET\BWIFIXETnum & \SBV \\
+\hline
+\BWIPALEO &		ACY &				\NoScratchpad{PDO \tiny(for DONIL)} & PALEO\BWIPALEOnum & \ACY \\
+\hline
+\BWIPALEO &		ENO &				\NoScratchpad{PSP \tiny(for DONIL)} & PALEO\BWIPALEOnum & \ENO \\
+\hline
+\BWIPALEO &		SIE &				\NoScratchpad{PDO \tiny(for DONIL)} & PALEO\BWIPALEOnum & \SIE \\
+\hline
+\BWISWANN &		DQO &				\NoScratchpad{SSW \tiny(for SWANN)} & SWANN\BWISWANNnum & \DQO \\
+\hline
+\BWISWANN &		OOD &				\NoScratchpad{SBR \tiny(for BROSS)} & SWANN\BWISWANNnum & \OOD \\
+\hline
+\BWITERPZ &		FLASK &				\Scratchpad{TCL} {\tiny(for CLTCH)} & TERPZ\BWITERPZnum & \FLASK \\
+\hline
+\BWITERPZ &		GSO &				\Scratchpad{TJD} {\tiny(for JDUBB)} & TERPZ\BWITERPZnum & \GSO \\
+\hline
+\BWITERPZ &		JERES J211 & 		\Scratchpad{JS1} & TERPZ\BWITERPZnum & \JERES \\
+\hline
+\BWITERPZ &		JERES J220 & 		\Scratchpad{JS2} & TERPZ\BWITERPZnum & \JERES \\
+\hline
+\BWITERPZ &		JERES J227 & 		\Scratchpad{JS2} & TERPZ\BWITERPZnum & \JERES \\
+\hline
+\BWITERPZ &		LYH  &				\Scratchpad{TSC} {\tiny(for SCRAM)} & TERPZ\BWITERPZnum & \LYH \\
+\hline
+\BWITERPZ &		MAULS &				\Scratchpad{TCL} {\tiny(for CLTCH)} & TERPZ\BWITERPZnum & \MAULS \\
+\hline
+\BWITERPZ &		MCRAY &				\Scratchpad{MCR} & TERPZ\BWITERPZnum & \MCRAY \\
+\hline
+\BWITERPZ &		OTTTO &				\Scratchpad{TOT} & TERPZ\BWITERPZnum & \OTTTO \\
+\hline
+\BWITERPZ &		RAMAY &				\Scratchpad{TRM} & TERPZ\BWITERPZnum & \RAMAY \\
+\hline
+\BWITERPZ &		SBV &				\Scratchpad{TJD} {\tiny(for JDUBB)} & TERPZ ~\BWITERPZnum & \SBV \\
+\hline
+\multicolumn{2}{|l}{DIXXE COLIN (non-SID)\NoTop} & \Scratchpad{COL} & \multicolumn{2}{l|}{Radar vectors to \DIXXE, \COLIN} \\
+\hline
+\end{sidtable}
+\clearpage
+
+
+\subsection{Departure Instructions}
+\subsubsection{VFR}
+\vspace{0.5em}
+\VFRBravo
+
+\paragraph{Departures} are to maintain VFR ``at or below \VFRInitialAlt~until further advised''.
+
+\VFRClosedTraffic
+
+\subsubsection{IFR}
+\paragraph{Departures on a SID} may be instructed to ``climb via SID except maintain \IFRInitialAlt''. Altitudes may also be directly assigned (i.e. ``maintain \IFRInitialAlt, expect \Variable{Cruise Altitude} 10 minutes after departure'').
+
+\paragraph{Departures not on a SID} \emph{must} be instructed to ``Fly runway heading, radar vectors to \Variable{NAVAID/Fix}, then as filed. Maintain \IFRInitialAlt, expect \Variable{Cruise Altitude} 10 minutes after departure''.
+
+
+\subsection{Departure Frequency Assignments}
+
+\noindent\begin{center}
+\begin{tabu}{|l|ll|}
+\hline
+Departure Gate & \multicolumn{2}{c|}{Frequency} \\
+\hline
+SWANN, PALEO, or DAILY & GRACO & 124.550\\
+\hline
+Otherwise & WOOLY & 128.700\\
+\hline
+\end{tabu}
+\end{center}
+\clearpage
+
+
+
+
+
+
+\Airport{KIAD --- Dulles International}{3000}{---}
+\subsection{Departure Routing}
+\begin{inset}{\danger}%
+Any General Aviation Aircraft and Air Taxis (EJA, LXJ, FIV, etc.) are not able to fly the JCOBY Departure AGARD/PALEO/SWANN transitions, and any of those, in addition to foreign air carriers, are not able to fly the JCOBY departure, COLIN Transition. Those aircraft all need to be rerouted to different departure gates.
+\end{inset}%
+
+\begin{sidtable}
+\IADBUNZZ &	RAMAY &						\Scratchpad{---} & BUNZZ\IADBUNZZnum & 	\RAMAY \\
+\hline
+\IADCPTAL &	--- &						\Scratchpad{---} & CPTAL\IADCPTALnum & --- \\
+\hline
+\IADCLTCH &	FLASK &						\Scratchpad{---} & \CLTCH\IADCLTCHnum &	\FLASK \\
+\hline
+\IADCLTCH &	MAULS &						\Scratchpad{---} & \CLTCH\IADCLTCHnum &	\MAULS \\
+\hline
+\IADJCOBY &	AGARD &						\Scratchpad{---} & \JCOBY\IADJCOBYnum &	\AGARD \\
+\hline
+\IADJCOBY &	COLIN &						\Scratchpad{---} & \JCOBY\IADJCOBYnum &	\COLIN \\
+\hline
+\IADJCOBY &	SWANN &						\Scratchpad{---} & \JCOBY\IADJCOBYnum & \SWANN \\
+\hline
+\IADJDUBB &	GSO &						\Scratchpad{---} & \JDUBB\IADJDUBBnum & \GSO \\
+\hline
+\IADJDUBB &	SBV &						\Scratchpad{---} & \JDUBB\IADJDUBBnum & \SBV \\
+\hline
+\IADJERES &	JERES J211 &				\Scratchpad{JS1} & \JERES\IADJERESnum & \JERES \\
+\hline
+\IADJERES &	JERES J220 &				\Scratchpad{JS2} & \JERES\IADJERESnum & \JERES \\
+\hline
+\IADMCRAY &	MCRAY &						\Scratchpad{MCR} & \MCRAY\IADMCRAYnum &	\MCRAY \\
+\hline
+\IADRNLDI &	OTTTO &						\Scratchpad{---} & RNLDI\IADRNLDInum &	\OTTTO \\
+\hline
+\IADSCRAM &	LYH &						\Scratchpad{---} & SCRAM\IADSCRAMnum &	\LYH \\
+\hline
+\IADWOOLY &	AGARD &						\Scratchpad{---} & WOOLY\IADWOOLYnum &	\AGARD \\
+\hline
+\IADWOOLY &	BAL &						\Scratchpad{---} & WOOLY\IADWOOLYnum &	\BAL \\
+\hline
+\IADWOOLY &	BROSS &						\Scratchpad{---} & WOOLY\IADWOOLYnum &	\BROSS \\
+\hline
+\IADWOOLY &	SWANN &						\Scratchpad{---} & WOOLY\IADWOOLYnum &	\SWANN \\
+\hline
+\end{sidtable}
+\clearpage
+
+\subsection{Departure Instructions}
+\subsubsection{VFR}
+\vspace{0.5em}
+\VFRBravo
+
+\paragraph{Departures (Jets)} are to ``Fly runway heading, maintain VFR at or below 3000 until further advised''.
+\paragraph{Departures (Propeller)} are to ``Fly runway heading, maintain VFR at or below 2500 until further advised''.
+\paragraph{Departures (Helicopter)} are to ``Fly runway heading, maintain VFR at or below 1300 until further advised''.
+
+\VFRClosedTraffic ~\emph{Note: Aircraft flying pattern work must not be assigned runway 30. Coordinate with tower (or controller above) if available, or assign runway 1R if no controller above.}
+
+\subsubsection{IFR}
+\paragraph{Departures on a SID} \emph{must} be instructed to ``climb via SID''.
+
+\paragraph{Departures not on a SID} \emph{must} be instructed to ``Fly runway heading, radar vectors to \Variable{NAVAID/Fix}, then as filed. Maintain \IFRInitialAlt, expect \Variable{Cruise Altitude} 10 minutes after departure''.
+
+\subsection{Departure Frequency Assignments}
+
+\begin{center}
+\begin{tabu}{|l|ll|}
+\hline
+Direction of Flight & \multicolumn{2}{c|}{Frequency} \\
+\hline
+
+\textbf{North or East} & ASPER & 125.050\\
+\hline
+\textbf{South or West} & TILLY & 126.650\\
+\hline
+\end{tabu}
+\end{center}
+\clearpage
+
+
+
+
+
+\Airport{KDCA --- Washington National}{5000}{---}
+
+\subsection{Departure Routing}
+\begin{sidtable}
+\DCABOOCK &	COLIN &				\Scratchpad{---} & BOOCK\DCABOOCKnum & \COLIN \\
+\hline
+\DCACLTCH &	FLASK &				\Scratchpad{---} & \CLTCH\DCACLTCHnum & \FLASK \\
+\hline
+\DCACLTCH &	MAULS &				\Scratchpad{---} & \CLTCH\DCACLTCHnum & \MAULS \\
+\hline
+\DCADOCTR &	AGARD &				\Scratchpad{---} & DOCTR\DCADOCTRnum & \AGARD \\
+\hline
+\DCADOCTR &	DQO &				\Scratchpad{---} & DOCTR\DCADOCTRnum & \DQO \\
+\hline
+\DCAHORTO &	BUFFR &				\Scratchpad{---} & HORTO\DCAHORTOnum & \BUFFR \\
+\hline
+\DCAHORTO &	JERES &				\Scratchpad{---} & HORTO\DCAHORTOnum & \JERES \\
+\hline
+\DCAJDUBB &	GSO &				\Scratchpad{---} & \JDUBB\DCAJDUBBnum & \GSO \\
+\hline
+\DCAJDUBB &	SBV &				\Scratchpad{---} & \JDUBB\DCAJDUBBnum & \SBV \\
+\hline
+\DCANATNL &	--- &				\Scratchpad{---} & NATNL\DCANATNLnum & --- \\
+\hline
+\DCAREBLL &	OTTTO &				\Scratchpad{---} & \REBLL\DCAREBLLnum & \OTTTO \\
+\hline
+\DCASCRAM &	LYH &				\Scratchpad{---} & \SCRAM\DCASCRAMnum & \LYH \\
+\hline
+\DCASOOKI &	SWANN &				\Scratchpad{---} & SOOKI\DCASOOKInum & \SWANN \\
+\hline
+\DCAWYNGS &	RAMAY &				\Scratchpad{---} & WYNGS\DCAWYNGSnum & \RAMAY \\
+\hline
+\end{sidtable}
+
+\clearpage
+
+\subsection{Departure Instructions}
+\subsubsection{VFR}
+\vspace{0.5em}
+\VFRBravo
+
+\paragraph{Departures} are to ``maintain VFR at or below \Variable{Altitude} until further advised''.
+
+...where `Altitude' is:
+
+\begin{center}
+\begin{tabu}{|l|l|l|}
+\hline
+\textbf{Airport Operations} & \textbf{Direction of Flight} & \textbf{Altitude} \\
+\hline
+\multirow{2}{*}{North} & North or East & 2500 \\
+ & South or West & 4500 \\
+\hline
+South & --- & 2500 \\
+\hline
+\end{tabu}
+\end{center}
+
+\VFRClosedTraffic
+
+\subsubsection{IFR}
+\paragraph{Departures on a SID} \emph{must} be instructed to ``climb via SID''.
+
+\paragraph{Departures not on a SID} should be asked to accept an RNAV SID if equipped, or the NATNL\DCANATNLnum~ departure otherwise. If the aircraft cannot fly a SID, they \emph{must} be instructed to ``Fly heading\Variable{Heading}, radar vectors to \Variable{NAVAID/Fix}, then as filed.''.
+
+All non-SID departures \emph{must} be instructed to ``Maintain \IFRInitialAlt, expect \Variable{Cruise Altitude} 10 minutes after departure''.
+
+...where `Heading' is:
+
+\begin{center}
+\begin{tabu}{|l|l|l|}
+\hline
+\textbf{Aircraft Type} & \textbf{Airport Operations} & \textbf{Heading} \\
+\hline
+\multirow{2}{*}{Jet} & North & 320\degree \\
+& South & 185\degree \\
+\hline
+Other & --- & \emph{Do not assign} \\
+\hline
+\end{tabu}
+\end{center}
+
+\subsection{Departure Frequency Assignments}
+
+\begin{center}
+\begin{tabu}{|l|ll|}
+\hline
+Direction of Flight & \multicolumn{2}{c|}{Frequency} \\
+\hline
+
+\textbf{North} or \textbf{East} & KRANT & 125.650\\
+\hline
+\textbf{South} or \textbf{West} & TYSON & 119.850\\
+\hline
+\end{tabu}
+\end{center}
+\end{document}
